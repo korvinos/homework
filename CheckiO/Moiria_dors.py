@@ -1,12 +1,13 @@
 def moria_key(text):
-    text = text.lower().replace('.', '').split(' ')
+    data = text.lower().replace('.', '').split(' ')
     tab = {}
-    for word in text:
-
+    for word in data:
+        keys = text.lower().replace('.', '').split(' ')
+        keys.remove(word)
         current = {}
         cor = 0
-
-        for key in text:
+        print(keys)
+        for key in keys:
 
             if word[1] == key[1]:
                 cor += 10
@@ -16,8 +17,6 @@ def moria_key(text):
                 cor += (len(word)/len(key))*30
             else:
                 cor += (len(key)/len(word))*30
-
-            current[key] = cor
         tab[word] = current
 
     return tab
