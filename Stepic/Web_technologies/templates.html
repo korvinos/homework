@@ -1,0 +1,30 @@
+{# Базовый шаблон base.html или layout#}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} QA {% endblock title %}</title>
+	 {% block extrahead %} {% endblock extrahead %} 
+</head>
+<b>
+	<h1>Вопросы и ответы</h1>
+	{% block content %} {% endblock content %}
+</body>
+</html>
+
+{# Шаблон главной страницы index.html #}
+
+{% extends "base.html" %} {# Наследуем от #}
+{% block title %} {# Блоки перекрывают блоки из base #}
+	{{ block.super }} - главная {# Вызов родительского шаблона #}
+{% endblock %}
+{% block content %}
+	
+	{% for obj in post_list %}
+		<div class="question">
+			<a href="{{ obj.boild_url }}">{{ obj }}</a>
+			{{ obj.created_date|date:"d.m.Y" }}
+		</div>
+	{% endfor %}
+
+{% endblock %}
