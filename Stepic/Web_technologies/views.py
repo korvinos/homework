@@ -90,3 +90,21 @@ def paginate(request, qs):
 	except EmptyPage:
 		page = paginator.page(paginator.num_pages)
 	return page
+
+
+# форма
+# И отображение формы и отправка 
+def post_add(request):
+	# проверка метода запроса 
+	if request.method == 'POST':
+		form = AddPostForm(request.POST)
+		if form.is_valid(): # очистка и валидация формы
+			post = form.save() # сохраняет в базу
+			url = post.get_url() # получаем url страницы
+			return HttpResponceRedirect(url)
+	else:
+		# Создаем новый экземпляр формы не привязанной к данным
+		form = AddPostForm()
+	return render(request, 'blog/post_add.html', {
+		'form': form
+		})
